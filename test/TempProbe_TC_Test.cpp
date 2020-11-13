@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
+#include "TempProbe_TC.h"
 
 #ifdef ARDUINO_CI
 #include "Adafruit_MAX31865_CI.h"

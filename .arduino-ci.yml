@@ -19,7 +19,7 @@ unittest:
     libraries:
       - "LiquidCrystal"
       - "RTClib"
-      - "Adafruit BusIO"
+      - "Adafruit_BusIO"
       - "Adafruit_MAX31865"
 
 compile:
@@ -28,6 +28,6 @@ compile:
     libraries:
       - "LiquidCrystal"
       - "RTClib"
-      - "Adafruit BusIO"
+      - "Adafruit_BusIO"
       - "Adafruit_MAX31865"
 
