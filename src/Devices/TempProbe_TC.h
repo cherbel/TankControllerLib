@@ -110,7 +110,7 @@ public:
     thermo.clearFault();
   }
 
-#ifdef ARDUINO_CI
+#ifdef MOCK_PINS_COUNT
 
   void setRTD(uint16_t newResistance) {
     thermo.setRTD(newResistance);
