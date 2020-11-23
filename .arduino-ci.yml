@@ -4,19 +4,17 @@ unittest:
         - mega2560
     libraries:
       - "Adafruit BusIO"
-      - "Adafruit_MAX31865"
+      - "Adafruit MAX31865"
       - "Ethernet"
       - "LiquidCrystal"
       - "RTClib"
-      - "Adafruit_BusIO"
-      - "Adafruit_MAX31865"
 
 compile:
     platforms:
       - mega2560
     libraries:
       - "Adafruit BusIO"
-      - "Adafruit_MAX31865"
+      - "Adafruit MAX31865"
       - "Ethernet"
       - "LiquidCrystal"
       - "RTClib"

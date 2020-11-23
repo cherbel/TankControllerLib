@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
 
-#ifdef ARDUINO_CI
+#ifdef MOCK_PINS_COUNT
 #include "Adafruit_MAX31865_CI.h"
 #else
 #include "Adafruit_MAX31865.h"
@@ -110,14 +110,18 @@ public:
     thermo.clearFault();
   }
 
-#ifdef MOCK_PINS_COUNT
+
 
   void setRTD(uint16_t newResistance) {
+    #ifdef MOCK_PINS_COUNT
     thermo.setRTD(newResistance);
+    #endif
   }
   void setFault(uint8_t newFault) {
+    #ifdef MOCK_PINS_COUNT
     thermo.setFault(newFault);
+    #endif
   }
 
-#endif
+
 };

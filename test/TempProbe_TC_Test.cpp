@@ -3,7 +3,7 @@
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
 
-#ifdef ARDUINO_CI
+#ifdef MOCK_PINS_COUNT
 #include "Adafruit_MAX31865_CI.h"
 #else
 #include "Adafruit_MAX31865.h"
@@ -33,7 +33,9 @@ unittest(readFault_TC_TempProbe) {
   uint8_t testFault = tempProbe.readFault();
   assertEqual(0, testFault);
   uint8_t expectedFault = 1;
+  #ifdef MOCK_PINS_COUNT
   tempProbe.setFault(expectedFault);
+  #endif
   testFault = tempProbe.readFault();
   assert(testFault == expectedFault);
   std::cout << std::endl;
@@ -44,7 +46,9 @@ unittest(clearFault_TC_TempProbe) {
   uint8_t setFault = 1;
   uint8_t expectedFault = 0;
   TempProbe_TC tempProbe;
+  #ifdef MOCK_PINS_COUNT
   tempProbe.setFault(setFault);
+  #endif
   tempProbe.clearFault();
   uint8_t testFault = tempProbe.readFault();
   assert(testFault == expectedFault);
