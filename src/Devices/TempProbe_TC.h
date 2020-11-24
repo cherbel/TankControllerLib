@@ -91,12 +91,15 @@ public:
   uint16_t getResistance() { 
     return thermo.readRTD(); 
   }
+
   float getTemperature() { 
     return thermo.temperature(RTDnominal, refResistor); 
   }
+
   uint8_t readFault() { 
     return thermo.readFault(); 
   }
+  
   void clearFault() { 
     thermo.clearFault(); 
   }
