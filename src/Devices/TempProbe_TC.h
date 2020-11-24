@@ -1,12 +1,3 @@
-#include "Arduino.h"
-#include "ArduinoUnitTests.h"
-
-#ifdef MOCK_PINS_COUNT
-#include "Adafruit_MAX31865_CI.h"
-#else
-#include "Adafruit_MAX31865.h"
-#endif
-
 // Adafruit MAX31865
 // The Adafruit MAX31865 is an external device that connects to a thermocouple (temperature
 // sensor), and has pins that can be used to read a resistance, temperature, or fault. The
@@ -84,44 +75,36 @@
 // refResistore. This class is pretty straightforward and you can the functions
 // and how to call them below.
 
-class TempProbe_TC {
-private:
-  Adafruit_MAX31865 thermo = Adafruit_MAX31865(45, 43, 41, 39);
+#pragma once
+#include "Arduino.h"
 
-  // RTDnominal, and refResistor for pt100
-  const int RTDnominal = 100;
-  const int refResistor = 430;
+#ifdef MOCK_PINS_COUNT
+#include <Adafruit_MAX31865_CI.h>
+#else
+#include <Adafruit_MAX31865.h>
+#endif
+
+class TempProbe_TC {
 
 public:
-  TempProbe_TC() {
-    thermo.begin(MAX31865_3WIRE);  // Start pt100 temperature probe with 3 wire configuration
-  }
+  static TempProbe_TC* instance();
 
-  uint16_t getResistance() {
-    return thermo.readRTD();
-  }
-  float getTemperature() {
-    return thermo.temperature(RTDnominal, refResistor);
-  }
-  uint8_t readFault() {
-    return thermo.readFault();
-  }
-  void clearFault() {
-    thermo.clearFault();
-  }
+  uint16_t getResistance() { return thermo.readRTD(); }
+  float getTemperature() { return thermo.temperature(RTDnominal, refResistor); }
+  uint8_t readFault() { return thermo.readFault(); }
+  void clearFault() { thermo.clearFault(); }
 
+private:
+  //  class variable
+  static TempProbe_TC* _instance;
+  const int RTDnominal = 100;
+  const int refResistor = 430;
+  Adafruit_MAX31865 thermo = Adafruit_MAX31865(45, 43, 41, 39);
 
-
-  void setRTD(uint16_t newResistance) {
-    #ifdef MOCK_PINS_COUNT
-    thermo.setRTD(newResistance);
-    #endif
-  }
-  void setFault(uint8_t newFault) {
-    #ifdef MOCK_PINS_COUNT
-    thermo.setFault(newFault);
-    #endif
-  }
-
-
+  //Methods
+  TempProbe_TC();
+  
+  
+  
+  
 };

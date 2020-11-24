@@ -1,58 +1,28 @@
-#include "TempProbe_TC.h"
-
 #include "Arduino.h"
 #include "ArduinoUnitTests.h"
+#include <TempProbe_TC.h>
 
-#ifdef MOCK_PINS_COUNT
-#include "Adafruit_MAX31865_CI.h"
-#else
-#include "Adafruit_MAX31865.h"
-#endif
 
-unittest(readRTD_TC_TempProbe) {
-  std::cout << std::endl;
-  uint16_t expectedRTD = 0;
-  TempProbe_TC tempProbe;
-  uint16_t testRTD = tempProbe.getResistance();
-  assert(testRTD == expectedRTD);
-  std::cout << std::endl;
-}
+unittest(TempProbe_Test) {
+  //Instace
+  TempProbe_TC* tempProbe = TempProbe_TC::instance();
 
-unittest(getTemp_TC_TempProbe) {
-  std::cout << std::endl;
-  float expectedTemp = -242.02;
-  TempProbe_TC tempProbe;
-  float testTemp = tempProbe.getTemperature();
-  assert(testTemp == expectedTemp);
-  std::cout << std::endl;
-}
+  //Test getResistance()
+  uint16_t testRTD = tempProbe->getResistance();
+  assertEqual(32767, testRTD);
 
-unittest(readFault_TC_TempProbe) {
-  std::cout << std::endl;
-  TempProbe_TC tempProbe;
-  uint8_t testFault = tempProbe.readFault();
-  assertEqual(0, testFault);
-  uint8_t expectedFault = 1;
-  #ifdef MOCK_PINS_COUNT
-  tempProbe.setFault(expectedFault);
-  #endif
-  testFault = tempProbe.readFault();
-  assert(testFault == expectedFault);
-  std::cout << std::endl;
-}
+  //Test getTemperature()
+  float testTemp = tempProbe->getTemperature();
+  assertEqual (988, (int) testTemp);
 
-unittest(clearFault_TC_TempProbe) {
-  std::cout << std::endl;
-  uint8_t setFault = 1;
-  uint8_t expectedFault = 0;
-  TempProbe_TC tempProbe;
-  #ifdef MOCK_PINS_COUNT
-  tempProbe.setFault(setFault);
-  #endif
-  tempProbe.clearFault();
-  uint8_t testFault = tempProbe.readFault();
-  assert(testFault == expectedFault);
-  std::cout << std::endl;
+  //Test readFault()
+  uint8_t testFault = tempProbe->readFault();
+  assertEqual(255, testFault);
+
+  //Test clearFault()
+  tempProbe->clearFault();
+  testFault = tempProbe->readFault();
+  assertEqual(255, testFault);
 }
 
 unittest_main()
