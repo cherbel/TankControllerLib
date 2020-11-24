@@ -85,26 +85,29 @@
 #endif
 
 class TempProbe_TC {
-
 public:
   static TempProbe_TC* instance();
 
-  uint16_t getResistance() { return thermo.readRTD(); }
-  float getTemperature() { return thermo.temperature(RTDnominal, refResistor); }
-  uint8_t readFault() { return thermo.readFault(); }
-  void clearFault() { thermo.clearFault(); }
+  uint16_t getResistance() { 
+    return thermo.readRTD(); 
+  }
+  float getTemperature() { 
+    return thermo.temperature(RTDnominal, refResistor); 
+  }
+  uint8_t readFault() { 
+    return thermo.readFault(); 
+  }
+  void clearFault() { 
+    thermo.clearFault(); 
+  }
 
 private:
-  //  class variable
+  //  Class variables
   static TempProbe_TC* _instance;
   const int RTDnominal = 100;
   const int refResistor = 430;
   Adafruit_MAX31865 thermo = Adafruit_MAX31865(45, 43, 41, 39);
 
-  //Methods
+  // Methods
   TempProbe_TC();
-  
-  
-  
-  
 };

@@ -1,25 +1,25 @@
-#include "Arduino.h"
-#include "ArduinoUnitTests.h"
 #include <TempProbe_TC.h>
 
+#include "Arduino.h"
+#include "ArduinoUnitTests.h"
 
 unittest(TempProbe_Test) {
-  //Instace
+  // Instance
   TempProbe_TC* tempProbe = TempProbe_TC::instance();
 
-  //Test getResistance()
+  // Test getResistance()
   uint16_t testRTD = tempProbe->getResistance();
   assertEqual(32767, testRTD);
 
-  //Test getTemperature()
+  // Test getTemperature()
   float testTemp = tempProbe->getTemperature();
-  assertEqual (988, (int) testTemp);
+  assertEqual (988, (int)testTemp);
 
-  //Test readFault()
+  // Test readFault()
   uint8_t testFault = tempProbe->readFault();
   assertEqual(255, testFault);
 
-  //Test clearFault()
+  // Test clearFault()
   tempProbe->clearFault();
   testFault = tempProbe->readFault();
   assertEqual(255, testFault);
