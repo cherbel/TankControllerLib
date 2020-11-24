@@ -88,20 +88,20 @@ class TempProbe_TC {
 public:
   static TempProbe_TC* instance();
 
-  uint16_t getResistance() { 
-    return thermo.readRTD(); 
+  uint16_t getResistance() {
+    return thermo.readRTD();
   }
 
-  float getTemperature() { 
-    return thermo.temperature(RTDnominal, refResistor); 
+  float getTemperature() {
+    return thermo.temperature(RTDnominal, refResistor);
   }
 
-  uint8_t readFault() { 
-    return thermo.readFault(); 
+  uint8_t readFault() {
+    return thermo.readFault();
   }
-  
-  void clearFault() { 
-    thermo.clearFault(); 
+
+  void clearFault() {
+    thermo.clearFault();
   }
 
 private:
